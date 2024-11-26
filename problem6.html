@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Problem 1</h1>
+    <h2>Description</h2>
+    <p>Problem 6 : Write a Program in C#define a Class “Salary” which will contain member variable Emp_no,Emp_name,Dob Basic Write a program using constructor. And method to calculate the DA, HRA, PF, IT, GROSS and NETPAY using appropriate condition. If Basic <= 20000 D.A is 40% Basic, H.R.A is 10% Basic. P.F 12% of Gross; PT is Rs .100 If Basic.> 20000 D.A is 50% Basic. H.R.A 15% Basic. P.F 12% of Gross ; PT is Rs.150 Gross = Basic.+D.A +HRA and Net = Gross -PT –PF</p>
+    <h2>Solution</h2>
+    <pre>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp_PartA_Problem6
+{
+    internal class Employee
+    {
+        private string empName;
+        private int empNo;
+        private string dob;
+        private double basicSalary, da, hra, pf, pt, gross, net;
+
+        public Employee() 
+        {
+            Console.WriteLine("Enter the Name of the Employee:");
+            empName = Console.ReadLine();
+            Console.WriteLine("Enter the Employee Number:");
+            empNo = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter the Date Of Birth:");
+            dob = Console.ReadLine();
+            Console.WriteLine("Enter the Basic Salary:");
+            basicSalary = double.Parse(Console.ReadLine()); 
+        }
+        public void Calculate()
+        {
+            if(basicSalary <= 20000)
+            {
+                da = 0.4 * basicSalary;
+                hra = 0.1 * basicSalary;
+                pf = 0.12 * basicSalary;
+                pt = 100;
+            }
+            else
+            {
+                da = 0.5 * basicSalary; 
+                hra = 0.15 * basicSalary;   
+                pf = 0.12 * basicSalary;
+                pt = 150;
+            }
+            gross = da + hra + basicSalary;
+            net = gross – (pf + pt);
+        }
+        public void DisplaySalary()
+        {
+            Console.WriteLine("Employee Name:" + empName);
+            Console.WriteLine("Employee Number:" + empNo);
+            Console.WriteLine("Employee Date Of Birth:" + dob);
+            Console.WriteLine("Basic Salary:" + basicSalary);
+            Console.WriteLine("DA:" + da);
+            Console.WriteLine("HRA:" + hra);
+            Console.WriteLine("PF:" + pf);
+            Console.WriteLine("PT:" + pt);
+            Console.WriteLine("Gross Salary:" + gross);
+            Console.WriteLine("Net Salary:" + net);
+        }
+    }
+}
+namespace ConsoleApp_PartA_Problem6
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Employee emp = new Employee();
+            emp.Calculate();
+            emp.DisplaySalary();
+            Console.ReadKey();
+        }
+    }
+}
+    </pre>
+    <h2>Output</h2>
+    <img src="problem1-output.jpg" alt="Problem 1 Output">
+</body>
+</html>

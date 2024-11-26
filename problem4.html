@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Problem 1</h1>
+    <h2>Description</h2>
+    <p>Problem 4: Write a VB program find GCD and LCM of two number.. Accept input through textbox and display the results in label. Also validate for invalid input such as empty input, nonnumeric and negative integer.
+</p>
+    <h2>Solution</h2>
+    <pre>
+Public Class Form1
+    Private Sub btnGCDandLCM_Click(sender As Object, e As EventArgs) Handles btnGCDandLCM.Click
+        Dim num1 As Integer
+        Dim num2 As Integer
+        Dim gcdResult As Integer
+        Dim lcmResult As Integer
+
+        'validate empty value
+        If txbNumber1.Text = "" Or txbNumber2.Text = "" Then
+            MessageBox.Show("Value cannot be Empty", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
+        'validate non-numeric value
+        If Not Integer.TryParse(txbNumber1.Text, num1) Or Not Integer.TryParse(txbNumber2.Text, num2) Then
+            MessageBox.Show("Please Enter a Numeric Value", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
+        'Negative Value Validation
+        If num1 < 0 Or num2 < 0 Then
+            MessageBox.Show("Please Enter a Positive Value", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
+        gcdResult = GCD(num1, num2)
+        lcmResult = LCM(num1, num2, gcdResult)
+        lblGCD.Text = "GCD of " & num1 & num2 & " is: " & gcdResult
+        lblLCM.Text = "LCM of " & num1 & num2 & " is: " & lcmResult
+    End Sub
+    Private Function GCD(n1 As Integer, n2 As Integer) As Integer
+        While n2 <> 0
+            Dim temp As Integer = n2
+            n2 = n1 Mod n2
+            n1 = temp
+        End While
+        Return n1
+    End Function
+    Private Function LCM(n1 As Integer, n2 As Integer, gcd As Integer) As Integer
+        Return (n1 * n2) / gcd
+    End Function
+End Class
+    </pre>
+    <h2>Output</h2>
+    <img src="problem1-output.jpg" alt="Problem 1 Output">
+</body>
+</html>

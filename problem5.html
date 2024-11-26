@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Problem 1</h1>
+    <h2>Description</h2>
+    <p>Problem 5 : Write a Program in C# to check a number if it is Prime; otherwise display the factor of that number.
+</p>
+    <h2>Solution</h2>
+    <pre>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp_PartA_Problem5
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int num, i;
+            Boolean isPrime = true;
+            Console.WriteLine("Enter the Number:");
+            num = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Factors of " + num + ":");
+            for (i = 2; i < num; i++)
+            {
+                if (num % i == 0)
+                { 
+                    isPrime = false;
+                    Console.WriteLine(i);
+                }
+            }
+            if (isPrime)
+            {
+                Console.WriteLine(num);
+                Console.WriteLine("It is a Prime Number:");
+            }
+            Console.ReadKey();
+        }
+    }
+}
+    </pre>
+    <h2>Output</h2>
+    <img src="problem1-output.jpg" alt="Problem 1 Output">
+</body>
+</html>

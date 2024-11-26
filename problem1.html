@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Problem 1</h1>
+    <h2>Description</h2>
+    <p>Problem 1 : Design a VB form to accept number of books to be ordered to a shop in a textbox. By clicking a button ‘Continue’, if accepted number is > 0, then place required number of textboxes on the form to accept the details Title, Author and Copies, during run time to accept details of specified number of books. By clicking a button ‘Next’ on this form, enabling progression bar, send the details to another form to show the summary of the books ordered.
+</p>
+    <h2>Solution</h2>
+    <pre>
+Public Class Form1
+    Private Sub btnContinue_Click(sender As Object, e As EventArgs) Handles btnContinue.Click
+        Dim num As Integer
+        If Integer.TryParse(txbOrder.Text, num) AndAlso num > 0 Then
+            GenerateUIComponents(num)
+        Else
+            MessageBox.Show("Please Enter a valid integer", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
+    End Sub
+    Private Sub GenerateUIComponents(ByVal n As Integer)
+        Dim yoffset As Integer = 250
+        Dim lblTitle As New Label()
+        lblTitle.Text = "Book Title"
+        lblTitle.Font = New Font(lblTitle.Font, FontStyle.Bold)
+        lblTitle.Location = New Point(10, yoffset)
+        Me.Controls.Add(lblTitle)
+        Dim lblAuthor As New Label()
+        lblAuthor.Text = "Author Name"
+        lblAuthor.Font = New Font(lblAuthor.Font, FontStyle.Bold)
+        lblAuthor.Location = New Point(200, yoffset)
+        Me.Controls.Add(lblAuthor)
+        Dim lblCopies As New Label()
+        lblCopies.Text = "No of Copies"
+        lblCopies.Font = New Font(lblCopies.Font, FontStyle.Bold)
+        lblCopies.Location = New Point(400, yoffset)
+        Me.Controls.Add(lblCopies)
+        For i As Integer = 1 To n
+            Dim txtTitle As New TextBox()
+            txtTitle.Name = "txtTitle" & i
+            txtTitle.BorderStyle = BorderStyle.FixedSingle
+            txtTitle.Font = New Font(txtTitle.Font, FontStyle.Bold)
+            txtTitle.Location = New Point(10, yoffset + 30)
+            Me.Controls.Add(txtTitle)
+            Dim txtAuthor As New TextBox()
+            txtAuthor.Name = "txtAuthor" & i
+            txtAuthor.BorderStyle = BorderStyle.FixedSingle
+            txtAuthor.Font = New Font(txtAuthor.Font, FontStyle.Bold)
+            txtAuthor.Location = New Point(200, yoffset + 30)
+            Me.Controls.Add(txtAuthor)
+            Dim txtCopies As New TextBox()
+            txtCopies.Name = "txtCopies" & i
+            txtCopies.BorderStyle = BorderStyle.FixedSingle
+            txtCopies.Font = New Font(txtCopies.Font, FontStyle.Bold)
+            txtCopies.Location = New Point(400, yoffset + 30)
+            Me.Controls.Add(txtCopies)
+            yoffset = yoffset + 50
+        Next
+        Dim btnNext As New Button()
+        btnNext.Text = "Next"
+        btnNext.Font = New Font(btnNext.Font, FontStyle.Bold)
+        btnNext.Location = New Point(250, yoffset + 50)
+        AddHandler btnNext.Click, AddressOf btnNext_Click
+        Me.Controls.Add(btnNext)
+    End Sub
+    Private Sub btnNext_Click(sender As Object, e As EventArgs)
+        Dim bookList As New List(Of BookDetails)
+        For i As Integer = 1 To Integer.Parse(txbOrder.Text)
+            Dim title As String = Me.Controls("txtTitle" & i).Text
+            Dim author As String = Me.Controls("txtauthor" & i).Text
+            Dim copies As String = Me.Controls("txtcopies" & i).Text
+            bookList.Add(New BookDetails(title, author, Integer.Parse(copies)))
+        Next
+        Dim summaryForm As New Form2(bookList)
+        summaryForm.Show()
+    End Sub
+    Public Class BookDetails
+        Public Property title As String
+        Public Property author As String
+        Public Property copies As Integer
+        Public Sub New(title As String, author As String, copies As Integer)
+            Me.title = title
+            Me.author = author
+            Me.copies = copies
+        End Sub
+    End Class
+End Class
+
+Public Class Form2
+    Public Sub New(books As List(Of Form1.BookDetails))
+
+        ' This call is required by the designer.
+        InitializeComponent()
+        DataGridView1.ColumnCount = 3
+        DataGridView1.Columns(0).Name = "Book Title"
+        DataGridView1.Columns(1).Name = "Author Name"
+        DataGridView1.Columns(2).Name = "No of Copies"
+        ProgressBar1.Maximum = books.Count
+        ProgressBar1.Value = 0
+        For Each bk As Form1.BookDetails In books
+            Dim title As String = bk.title
+            Dim author As String = bk.author
+            Dim copies As String = bk.copies
+            DataGridView1.Rows.Add(title, author, copies)
+            ProgressBar1.Value += 1
+        Next
+    End Sub
+End Class
+    </pre>
+    <h2>Output</h2>
+    <img src="problem1-output.jpg" alt="Problem 1 Output">
+</body>
+</html>

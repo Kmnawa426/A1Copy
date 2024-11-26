@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Problem 1</h1>
+    <h2>Description</h2>
+    <p>Problem 2 : Design a VB interface containing a. A picture box whose picture should be changed every 5 second (use 5 pictures). b. Textboxes to display date & time and day greeting based on time. Time has to be changed every second automatically. c. Use scrollbars to change font size and background color (RGB) of the textbox that shows greeting. [Use timer, scrollbars]
+</p>
+    <h2>Solution</h2>
+    <pre>
+Public Class Form1
+    Dim images As String() = {"C:\Users\bca23020\Desktop\Pictures\images (1).jfif", "C:\Users\bca23020\Desktop\Pictures\images (2).jfif", "C:\Users\bca23020\Desktop\Pictures\images (3).jfif", "C:\Users\bca23020\Desktop\Pictures\images (5).jfif"}
+    Dim currentIndex As Integer = 0
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Timer1.Interval = 1000
+        Timer1.Start()
+    End Sub
+
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        PictureBox1.ImageLocation = images(currentIndex)
+        currentIndex += 1
+        If currentIndex >= images.Length Then
+            currentIndex = 0
+        End If
+        lblTime.Text = DateTime.Now.ToString("hh:mm:ss tt")
+        Dim currentHour As Integer = DateTime.Now.Hour
+        If currentHour >= 5 AndAlso currentHour < 12 Then
+            lblGreeting.Text = "Good Morning!!!"
+        ElseIf currentHour >= 12 AndAlso currentHour < 18 Then
+            lblGreeting.Text = "Good Afternoon!!!"
+        ElseIf currentHour >= 18 AndAlso currentHour < 22 Then
+            lblGreeting.Text = "Good Evening!!!"
+        Else
+            lblGreeting.Text = "Good Night!!!"
+        End If
+    End Sub
+    Public Sub UpdateColor()
+        Dim red As Integer = hsbRed.Value
+        Dim green As Integer = hsbGreen.Value
+        Dim blue As Integer = hsbBlue.Value
+        lblGreeting.BackColor = Color.FromArgb(red, green, blue)
+    End Sub
+
+    Private Sub hsbRed_Scroll(sender As Object, e As ScrollEventArgs) Handles hsbRed.Scroll
+        UpdateColor()
+    End Sub
+    Private Sub hsbGreen_Scroll(sender As Object, e As ScrollEventArgs) Handles hsbGreen.Scroll
+        UpdateColor()
+    End Sub
+    Private Sub hsbBlue_Scroll(sender As Object, e As ScrollEventArgs) Handles hsbBlue.Scroll
+        UpdateColor()
+    End Sub
+
+    Private Sub vsbFontSize_Scroll(sender As Object, e As ScrollEventArgs) Handles vsbFontSize.Scroll
+        lblGreeting.Font = New Font(lblGreeting.Font.FontFamily, vsbFontSize.Value)
+    End Sub
+End Class
+    </pre>
+    <h2>Output</h2>
+    <img src="problem1-output.jpg" alt="Problem 1 Output">
+</body>
+</html>

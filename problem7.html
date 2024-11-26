@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Problem 1</h1>
+    <h2>Description</h2>
+    <p>Problem 7 : Write a Program in C# to find addition and Multiplication operation on two complex number using operator overloading.
+</p>
+    <h2>Solution</h2>
+    <pre>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Practical_Prob7_PartA
+{
+    internal class Complex
+    {
+        private int realPart;
+        private int imaginaryPart;
+        
+        public Complex()
+        {
+            realPart = 0;
+            imaginaryPart = 0;  
+        }
+        public Complex(int realPart, int imaginaryPart)
+        {
+            this.realPart = realPart;
+            this.imaginaryPart = imaginaryPart;
+        }
+        public void DisplayComplexNumber()
+        {
+            Console.WriteLine(realPart + " + " + imaginaryPart + "i");
+        }
+        public static Complex operator +(Complex a, Complex b)
+        {
+            Complex c = new Complex();
+            c.realPart=a.realPart+b.realPart;
+            c.imaginaryPart=a.imaginaryPart+b.imaginaryPart;
+            return c;
+        }
+        public static Complex operator *(Complex a, Complex b)
+        {
+            Complex c = new Complex();
+            c.realPart = (a.realPart*b.realPart)-(a.imaginaryPart*b.imaginaryPart);
+            c.imaginaryPart=(a.realPart*b.imaginaryPart)+(a.imaginaryPart*b.realPart);
+            return c;
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Practical_Prob7_PartA
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Complex c1 = new Complex(5,3);
+            Complex c2 = new Complex(6,7);
+            Complex c3 = c1+ c2;
+            
+            Console.WriteLine();
+            c1.DisplayComplexNumber();
+            c2.DisplayComplexNumber();
+            c3.DisplayComplexNumber();
+
+            Complex c4 = c1* c2;
+            c4.DisplayComplexNumber();
+            Console.ReadKey();
+        }
+    }
+}
+    </pre>
+    <h2>Output</h2>
+    <img src="problem1-output.jpg" alt="Problem 1 Output">
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Problem 1</h1>
+    <h2>Description</h2>
+    <p>Problem 3 : Design a VB interface to add, remove, search and clear the items in a combo box. The item name to be added, removed or searched can be accepted through input box. Use a general procedure to find the existence of item before deleting or while searching.
+</p>
+    <h2>Solution</h2>
+    <pre>
+    	Public Class Form1
+    Private Function ItemExists(ByVal item As String) As Boolean
+        Return cmbFastFood.Items.Contains(item)
+    End Function
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+cmbFastFood.Items.Add("Schezwan Noodles")
+    End Sub
+
+    Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
+        Dim itemName As String = InputBox("Enter the name of the fast food to add", "Fast Food Item")
+        If itemName = "" Then
+MessageBox.Show("Item cannot be Empty!!!", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
+        If ItemExists(itemName) Then
+MessageBox.Show("Item already present!!!", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Else
+cmbFastFood.Items.Add(itemName)
+MessageBox.Show(itemName& "added to the list", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Exit Sub
+        End If
+    End Sub
+
+    Private Sub btnRemove_Click(sender As Object, e As EventArgs) Handles btnRemove.Click
+        Dim itemName As String = InputBox("Enter the item name to remove:", "Fast Food Item")
+        If itemName = "" Then
+MessageBox.Show("Item cannot be Empty!!!", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
+        If ItemExists(itemName) Then
+cmbFastFood.Items.Remove(itemName)
+MessageBox.Show(itemName& "Removed from the list", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Else
+MessageBox.Show(itemName& " do not exists in the list", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
+    End Sub
+
+    Private Sub btnSelect_Click(sender As Object, e As EventArgs) Handles btnSelect.Click
+        Dim itemName As String = InputBox("Enter an item to select:", "Fast Food Item")
+        If itemName = "" Then
+MessageBox.Show("Item cannot be Empty!!!", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
+        If ItemExists(itemName) Then
+MessageBox.Show(itemName& " is present in the list", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Else
+MessageBox.Show(itemName& " is Not present", " input Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
+    End Sub
+
+    Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
+cmbFastFood.Items.Clear()
+MessageBox.Show("All items Cleared", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+End Class
+    </pre>
+    <h2>Output</h2>
+    <img src="problem1-output.jpg" alt="Problem 1 Output">
+</body>
+</html>
